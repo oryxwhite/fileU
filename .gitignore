@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+uploads
+
+id_rsa_priv.pem
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
