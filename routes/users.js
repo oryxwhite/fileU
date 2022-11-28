@@ -4,12 +4,10 @@ const User = mongoose.model('User');
 const passport = require('passport');
 const utils = require('../lib/utils');
 
-// TODO
 router.get('/protected', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     res.status(200).json({ success: true, msg: 'You are authorized!' })
 });
 
-// TODO
 router.post('/login', function(req, res, next){
     User.findOne({ username: req.body.username })
         .then((user) => {
@@ -26,6 +24,7 @@ router.post('/login', function(req, res, next){
                 res.status(401).json({ success: false, msg: 'You entered the wrong password'})
             }
         })
+        
         .catch((err) => {
             next(err)
         })
