@@ -1,4 +1,4 @@
-#Install and configure
+# Install and configure
 - run npm i in root dir and tsclient
 - add environment variables in root .env file:
     - S3_BUCKET
