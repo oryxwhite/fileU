@@ -3,6 +3,10 @@ const app = express();
 const cors = require('cors');
 const upload = require('./middleware/multer')
 const passport = require('passport')
+const AWSupload = require('./config/aws')
+const fs = require('fs')
+const s3 = require('./config/aws')
+
 
 app.use(cors())
 app.use(express.json())
@@ -19,11 +23,25 @@ app.use(require('./routes'));
 
 
 
-app.post('/upload', upload.single('file'), (req, res) => {
-
+app.post('/upload', upload.single('file'), async (req, res) => {
     console.log(req.file.filename)
-    
-    res.json()
+    const file = fs.readFileSync(req.file.path)
+    s3.upload({
+        Bucket: process.env.S3_BUCKET,
+        Key: req.file.filename,
+        Body: file,
+    }, (err, data) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log(data.Location)
+            
+
+            res.json(data.Location)
+        }
+    })
+
+
 })
 
 
