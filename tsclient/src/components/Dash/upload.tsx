@@ -1,16 +1,18 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { useAuth } from '../../hooks/context/contexxt'
 import authHeader from '../../services/auth'
 
-const Upload  =  () => {
+
+const Upload: React.FC =  () => {
   const [file, setFile] = useState<null | Blob>(null)
   const [status, setStatus] = useState<null | string>(null)
-  const [header, setHeader] = useState(null)
-
+  const [header, setHeader] = useState<string>('')
+  const token = useAuth().userDetails?.token
+  
   useEffect(() => {
-      const header = authHeader().Authorization
-      setHeader(header)
-      console.log(header)
+    if (token) {setHeader(token)}
+    console.log(token)
   }, [])
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {

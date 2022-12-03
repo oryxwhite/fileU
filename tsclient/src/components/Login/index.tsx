@@ -1,15 +1,18 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useContext, useState } from 'react'
 import { useForm, SubmitHandler  } from 'react-hook-form';
 import { IFormInput } from '../../types/interface';
 import {Axios, AxiosError, isAxiosError} from 'axios'
 import { api } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 import  authHeader from '../../services/auth'
+import { AuthContext, useAuthDispatch, useAuth} from '../../hooks/context/contexxt';
 
 
 
 const Login = (): JSX.Element => {
-
+    // const state = useContext(AuthContext)
+    const dispatch = useAuthDispatch()
+    const state = useAuth()
     const {register, handleSubmit, formState: { errors }} = useForm<IFormInput>()
     const navigate = useNavigate()
 
@@ -19,7 +22,9 @@ const Login = (): JSX.Element => {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
             // console.log(res.data)
-            localStorage.setItem('user', JSON.stringify(res.data))
+            // localStorage.setItem('user', JSON.stringify(res.data))
+            dispatch({type: "setUserData", userData: res.data.user})
+            console.log(state)
             // localStorage.setItem("token", res.data?.token)
             // console.log(localStorage.getItem('user'))
             // if (authHeader().loggedIn) navigate('/dash') 

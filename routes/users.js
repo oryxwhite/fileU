@@ -12,7 +12,7 @@ router.get('/protected', passport.authenticate('jwt', {session: false}), async (
     const user = await User.findOne({username: req.user.username})
     const userfiles = user.files
     
-    res.status(200).json({ success: true, msg: 'You are authorized!', files: userfiles })
+    res.status(200).json({ success: true, msg: 'You are authorized!', user: user })
 });
 
 router.post('/upload', upload.single('file'), passport.authenticate('jwt', {session: false}), async (req, res, next) => {
@@ -64,7 +64,7 @@ router.post('/login', function(req, res, next){
 
             if (isValid) {
                 const tokenObject = utils.issueJWT(user)
-                res.status(200).json({ success: true, user: {username: user.username}, token: tokenObject.token, expiresIn: tokenObject.expires })
+                res.status(200).json({ success: true, user: {username: user.username, token: tokenObject.token, files: user.files} })
             } else {
                 res.status(401).json({ success: false, msg: 'You entered the wrong password'})
             }
@@ -75,7 +75,6 @@ router.post('/login', function(req, res, next){
         })
 });
 
-// TODO
 router.post('/register', async function(req, res, next){
     let userExist = await User.findOne({username: req.body.username})
 
@@ -96,7 +95,7 @@ router.post('/register', async function(req, res, next){
         newUser.save()
             .then((user) => {
                 const jwt = utils.issueJWT(user)
-                res.json({ success: true, user: {username: user.username}, token: jwt.token, expiresIn: jwt.expires})
+                res.json({ success: true, user: {username: user.username, token: jwt.token, files: user.files }})
                 console.log(user, jwt.token)
             })
             .catch(err => next(err))

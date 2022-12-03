@@ -13,7 +13,8 @@ export interface IFile {
 
 export interface IUserStore {
     username: string,
-    files?: File[]
+    token: string,
+    files: File[],
 }
 
 // export interface Error {
