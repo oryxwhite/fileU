@@ -5,7 +5,7 @@ import {Axios, AxiosError, isAxiosError} from 'axios'
 import { api } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 import  authHeader from '../../services/auth'
-import { AuthContext, useAuthDispatch, useAuth} from '../../hooks/context/contexxt';
+import { AuthContext, useAuthDispatch, useAuth} from '../../hooks/context/context';
 
 
 

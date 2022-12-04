@@ -1,7 +1,7 @@
 import axios from 'axios' 
 import { IFormInput } from '../types/interface'
 // import authHeader from './auth'
-import { useAuth } from '../hooks/context/contexxt'
+import { useAuth } from '../hooks/context/context'
 
 // const state = useAuth()
 

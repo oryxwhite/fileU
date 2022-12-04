@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { useAuth } from '../../hooks/context/contexxt'
+import { useAuth } from '../../hooks/context/context'
 import authHeader from '../../services/auth'
 
 

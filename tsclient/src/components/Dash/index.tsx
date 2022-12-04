@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Upload  from './upload'
 import {IUserStore, IFile} from '../../types/interface'
 import axios from 'axios'
-import { useAuth, useAuthDispatch } from '../../hooks/context/contexxt'
+import { useAuth, useAuthDispatch } from '../../hooks/context/context'
 
 const Dash = (): JSX.Element => {
     const [message, setMessage] = useState<string>('')

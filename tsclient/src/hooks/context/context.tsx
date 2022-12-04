@@ -1,60 +1,103 @@
+import { createContext, useReducer, useContext, useState } from 'react'
+// import { useFormContext } from 'react-hook-form'
+import { IFile, IUserStore } from '../../types/interface'
 
+interface IAuthContextState {
+    authenticated: boolean,
+    userDetails?: IUserStore | null,
+    token?: string,
+}
 
-// import {createContext, useReducer, useContext, useEffect} from "react";
+const initialState: IAuthContextState = {
+    authenticated: false,
+    // userDetails: JSON.parse(localStorage.getItem('user'))
 
-// type User = {
-//     username: string,
-// }
+}
 
-// type AuthState = null | {
-//     authenticated: boolean,
-//     userDetails: User | null,
-//     token: string | null,
-//     loading: boolean,
-//     errorMessage: string | null
-// }
+const initialDispatchContextState: React.Dispatch<action> = () => initialState
 
-// const initialState = {
-//         authenticated: false,
-//         userDetails: null,
-//         token: null,
-//         loading: false,
-//         errorMessage: null
-// }
+export const AuthContext = createContext<IAuthContextState>(initialState)
+export const AuthDispatchContext = createContext<React.Dispatch<action>>(initialDispatchContextState)
  
-// const AuthStateContext = createContext<AuthState>(null)
-// const AuthDispatchContext = createContext(null);
+type Props = {
+    children: JSX.Element
+}
 
-// export function useAuthState() {
-//     const context = useContext(AuthStateContext);
-//     if (context === null) {
-//       throw new Error("useAuthState must be used within a AuthProvider");
-//     }
-   
-//     return context;
-//   }
-   
-//   export function useAuthDispatch() {
-//     const context = useContext(AuthDispatchContext);
-//     if (context === null) {
-//       throw new Error("useAuthDispatch must be used within a AuthProvider");
-//     }
-   
-//     return context;
-//   }
+export const AuthProvider: React.FC<Props> = ({ children }: Props) => {
+    // const [user, setUser] = useState<IUserStore | null>(null)
+    let user: IUserStore | null = null
+    const userData = localStorage.getItem('user')
+    if (userData != null) {
+        user = JSON.parse(userData)
+    }
 
-//   export const AuthProvider = ({ children }) => {
-//     const [user, dispatch] = useReducer(AuthReducer, initialState);
-   
-//     return (
-//       <AuthStateContext.Provider value={user}>
-//         <AuthDispatchContext.Provider value={dispatch}>
-//           {children}
-//         </AuthDispatchContext.Provider>
-//       </AuthStateContext.Provider>
-//     );
-//   };
+    const initialState: IAuthContextState = {
+        authenticated: user != null ? true : false,
+        userDetails: user
+    
+    }
+    const [state, dispatch] = useReducer(authReducer, initialState)
 
-export function hello() {
-    return
+    return (
+        <AuthContext.Provider value={state}>
+            <AuthDispatchContext.Provider value={dispatch}>
+                { children }
+            </AuthDispatchContext.Provider>
+        </AuthContext.Provider>
+    )
+}
+
+export const useAuth = () => {
+    return useContext(AuthContext)
+}
+
+export const useAuthDispatch = () => {
+    return useContext(AuthDispatchContext)
+}
+
+//TODO
+// add reducer for getUserData, setFiles
+// add interface for action
+// switch to cookies?
+// change localstorage user schema
+// update router to consume context 
+
+type action = 
+    | {type: "setUserData"; userData: IUserStore}
+    | {type: "clearUserData";}
+
+
+    // type: "setUserData" | "clearUserData",
+    // userData?: IUserStore
+
+
+const authReducer = (state: IAuthContextState, action: action ) => {
+    switch (action.type) {
+        case "setUserData": {
+            localStorage.setItem('user', JSON.stringify(action.userData))
+            return {
+                ...state,
+                authenticated: true,
+                userDetails: action.userData,
+                token: action.userData.token
+                // userDetails: action.userData,
+                // token: action.userData?.token,
+                // authenticated: true
+            }
+        }
+
+        case "clearUserData": {
+            localStorage.clear()
+            return {
+                authenticated: false,
+              
+                // userDetails: null,
+                // token: null,
+                // authenticated: false
+            }
+        }
+        default: {
+            throw Error('Unknown action: ' + action);
+          }
+    }
 }
