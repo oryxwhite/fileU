@@ -43,14 +43,16 @@ const Login = (): JSX.Element => {
     }
 
     return (
-        <>
-        <h1>Login</h1>
-        <form onSubmit={handleSubmit(formSubmitHandler)}>
+        <div className='flex flex-col items-center'>
+        {/* <h1>Login</h1> */}
+        <form className='flex flex-col items-center mt-10 text-white' onSubmit={handleSubmit(formSubmitHandler)}>
             <label>
-                <p>Username</p>
+                {/* <p>Username</p> */}
                 <input
                     type="text"
                     aria-label='Username field'
+                    placeholder='Username'
+                    className="input border border-slate-700 w-full max-w-xs mb-4"
                     {...register('username', { 
                         required: {
                             value: true, 
@@ -69,20 +71,23 @@ const Login = (): JSX.Element => {
 
             </label>
             <label>
-                <p>Password</p>
+                {/* <p>Password</p> */}
                 <input
                     type="password"
                     aria-label='Password field'
+                    placeholder='password'
+                    className="input border border-slate-700 w-full max-w-xs mb-4"
+
                     {...register('password', { required: true })}
                      />
                     {errors.password && <span>This field is required</span>}
 
             </label>
             <div>
-                <button type="submit">Login</button>
+                <button type="submit" className='btn text-white'>Login</button>
             </div>
         </form>
-      </>
+      </div>
     )
 }
 

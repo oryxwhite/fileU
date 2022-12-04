@@ -50,10 +50,10 @@ const Upload: React.FC =  () => {
   console.log(status)
     }
   return (
-    <div>
-      <h1>File Upload</h1>
-      <input type='file' name='file' onChange={inputHandler} />
-      <button onClick={handleUpload}>Upload</button>
+    <div className='flex flex-col items-center'>
+      {/* <h1>File Upload</h1> */}
+      <input type='file' name='file' onChange={inputHandler} className='file-input file-input-bordered file-input-secondary w-full max-w-xs mb-4' />
+      <button className='btn mb-20 text-white' onClick={handleUpload}>Upload</button>
       <h2>{status}</h2>
     </div>
   )

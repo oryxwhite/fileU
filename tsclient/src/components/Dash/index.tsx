@@ -38,11 +38,11 @@ const Dash = (): JSX.Element => {
     
 
     return (
-    <>
-        <h1>{message}</h1>
+    <div className='flex flex-col items-center'>
+        <h1 className='my-10'>{message}</h1>
         <Upload></Upload>
         {renderFiles}
-    </>
+    </div>
     )
 }
 

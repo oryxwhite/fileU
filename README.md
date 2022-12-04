@@ -1,14 +1,15 @@
 # FileU
 ### A template for MERN projects that require user Authentication and file uploads. This app uses:
 
-### - React / Typescript
-### - TailwindCSS
-### - Node.js
-###     - Express
-###     - Multer (middleware for multipart form data) 
-###     - Passport.js JWT (middleware for authentication)
-### - MongoDB
-### - AWS S3 Object Storage
+ - React / Typescript
+ - TailwindCSS
+ - DaisyUI
+ - Node.js
+     - Express
+     - Multer (middleware for multipart form data) 
+     - Passport.js JWT (middleware for authentication)
+ - MongoDB
+ - AWS S3 Object Storage
 
 ## Install and configure
 - run npm i in root dir and tsclient

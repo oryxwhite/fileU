@@ -34,14 +34,17 @@ const Register = (): JSX.Element => {
     }
 
     return (
-        <>
-        <h1>Register</h1>
-        <form onSubmit={handleSubmit(formSubmitHandler)}>
+        <div className='flex flex-col items-center mt-10'>
+        {/* <h1>Register</h1> */}
+        <form className='flex flex-col items-center text-white' onSubmit={handleSubmit(formSubmitHandler)}>
             <label>
-                <p>Username</p>
+                {/* <p>Username</p> */}
                 <input
                     type="text"
                     aria-label='Username field'
+                    placeholder='Username'
+                    className="input border border-slate-700 w-full max-w-xs mb-4"
+
                     {...register('username', { 
                         required: {
                             value: true, 
@@ -55,34 +58,40 @@ const Register = (): JSX.Element => {
                         }
                         })}
                     />
-                    {errors.username && <span>{errors.username.message}</span>}
+                    {errors.username && <div className='mb-4 text-error'>{errors.username.message}</div>}
                     
 
             </label>
             <label>
-                <p>Password</p>
+                {/* <p>Password</p> */}
                 <input
                     type="password"
                     aria-label='Password field'
+                    placeholder='Password'
+                    className="input border border-slate-700 w-full max-w-xs mb-4"
+
                     {...register('password', { required: true })}
                      />
-                    {errors.password && <span>This field is required</span>}
+                    {errors.password && <div className='mb-4 text-error'>This field is required</div>}
 
             </label>
             <label>
-                <p>Confirm Password</p>
+                {/* <p>Confirm Password</p> */}
                 <input 
                     type="password"
                     aria-label='Confirm password field'
+                    placeholder='Confirm Password'
+                    className="input border border-slate-700 w-full max-w-xs mb-4"
+                    
                     {...register('confirmPassword', { required: true })}
                     />
-                    {errors.confirmPassword && <span>This field is required</span>}
+                    {errors.confirmPassword && <div className='mb-4 text-error'>This field is required</div>}
             </label>
             <div>
-                <button type="submit">Register</button>
+                <button className='btn text-white' type="submit">Register</button>
             </div>
         </form>
-      </>
+      </div>
     )
 }
 
