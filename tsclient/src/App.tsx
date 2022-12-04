@@ -5,6 +5,7 @@ import Login from './components/Login/index'
 import Register from './components/Register/RegisterForm'
 import { useAuth } from './hooks/context/contexxt'
 import Layout from './components/Layout/layout'
+import Logout from './components/Logout'
 
 function App() {
   const state = useAuth()
@@ -25,6 +26,7 @@ function App() {
           <Route path='/dash' 
           element={ useAuth().authenticated
           ? <Dash/> : <Navigate to='/login' />} />
+          <Route path='/logout' element={<Logout />} />
          </Route>
 
       </Routes>
