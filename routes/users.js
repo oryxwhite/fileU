@@ -12,7 +12,7 @@ router.get('/protected', passport.authenticate('jwt', {session: false}), async (
     const user = await User.findOne({username: req.user.username})
     const userfiles = user.files
     
-    res.status(200).json({ success: true, msg: 'You are authorized!', user: user })
+    res.status(200).json({ success: true, msg: 'You are authorized!', userData: {username: user.username, files: userfiles} })
 });
 
 router.post('/upload', upload.single('file'), passport.authenticate('jwt', {session: false}), async (req, res, next) => {
@@ -34,15 +34,9 @@ router.post('/upload', upload.single('file'), passport.authenticate('jwt', {sess
                 size: req.file.size
             })
 
-            await user.save((err) => {
-                if (err) {
-                    console.log(err)}
-                else {
-                    console.log('user saved')
-                    fs.unlink(req.file.path, err => console.log(err))
-                    res.json(locationdata.Location)
-                }
-            })
+            const updatedUser = await user.save()
+            fs.unlink(req.file.path, err => console.log(err))
+            res.json({username: updatedUser.username, token: req.headers.token, files: updatedUser.files})
 
             
     } catch (err) {

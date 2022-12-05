@@ -1,14 +1,13 @@
-import { FormEvent, useState } from 'react'
 import { useForm, SubmitHandler  } from 'react-hook-form';
 import { IFormInput } from '../../types/interface';
 import {Axios, AxiosError, isAxiosError} from 'axios'
 import { api } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
-import authHeader from '../../services/auth';
-
+import { useAuth, useAuthDispatch } from '../../hooks/context/context';
 const Register = (): JSX.Element => {
-
-    const {register, handleSubmit, watch, formState: { errors }} = useForm<IFormInput>()
+    const authState = useAuth()
+    const authDispatch = useAuthDispatch()
+    const {register, handleSubmit, formState: { errors }} = useForm<IFormInput>()
     const navigate = useNavigate()
 
     const formSubmitHandler: SubmitHandler<IFormInput> = async (data: IFormInput) => {
@@ -16,11 +15,9 @@ const Register = (): JSX.Element => {
             const res = await api.post('http://localhost:4000/users/register', data , {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
-            // console.log(res.data)
-            localStorage.setItem('user', JSON.stringify(res.data))
-            // localStorage.setItem("token", res.data?.token)
-            // console.log(localStorage.getItem('user'))
-            if (authHeader().loggedIn) navigate('/dash') 
+            authDispatch({type: "setUserData", userData: res.data.user})
+           
+            navigate('/dash') 
 
         } catch(err) {
             if (isAxiosError(err)) {
@@ -88,7 +85,7 @@ const Register = (): JSX.Element => {
                     {errors.confirmPassword && <div className='mb-4 text-error'>This field is required</div>}
             </label>
             <div>
-                <button className='btn text-white' type="submit">Register</button>
+                <button className='btn text-white' type="submit">Sign Up</button>
             </div>
         </form>
       </div>

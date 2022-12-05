@@ -1,8 +1,8 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { useAuth } from '../../hooks/context/context'
 
 const Layout: React.FC = () => {
-    let location = useLocation()
-    console.log(location)
+    const authorized = useAuth().authenticated
     return (
         <>
             <nav className='navbar bg-base-200 rounded-2xl text-white'>
@@ -10,12 +10,12 @@ const Layout: React.FC = () => {
 
             <div className='flex-none'>
 
-                <ul className='menu menu-horizontal p-0'>
+                <ul className='menu menu-horizontal p-0 text-xs sm:text-sm'>
                     {/* <li><Link to="/">Home</Link></li> */}
-                    <li><NavLink className="rounded-xl" to="/dash">Dashboard</NavLink></li>
-                    <li><NavLink className="rounded-xl" to="/login">Login</NavLink></li>
-                    <li><NavLink className="rounded-xl" to="/register">Sign Up</NavLink></li>
-                    <li><NavLink className="rounded-xl" to="/logout">Logout</NavLink></li>
+                    {authorized? <li><NavLink className="rounded-xl sm:mx-[2px]" to="/dash">Dashboard</NavLink></li> : null }
+                    {authorized ? null : <li><NavLink className="rounded-xl sm:mx-[2px]" to="/login">Login</NavLink></li> }
+                    {authorized ? null : <li><NavLink className="rounded-xl sm:mx-[2px]" to="/register">Sign Up</NavLink></li>}
+                    {authorized ? <li><NavLink className="rounded-xl sm:mx-[2px]" to="/logout">Logout</NavLink></li> : null}
                     
                 </ul>
                 </div>
