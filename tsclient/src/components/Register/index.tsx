@@ -12,7 +12,7 @@ const Register = (): JSX.Element => {
 
     const formSubmitHandler: SubmitHandler<IFormInput> = async (data: IFormInput) => {
         try {
-            const res = await api.post('http://localhost:4000/users/register', data , {
+            const res = await api.post('/users/register', data , {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
             authDispatch({type: "setUserData", userData: res.data.user})

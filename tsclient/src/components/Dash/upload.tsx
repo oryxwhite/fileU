@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useAuth, useAuthDispatch } from '../../hooks/context/context'
-import authHeader from '../../services/auth'
+import { api } from '../../services/api'
 import {IFile} from '../../types/interface'
 
 type Props = {
@@ -39,7 +39,7 @@ const Upload: React.FC<Props> =  ({setFiles, files}: Props) => {
             console.log(key)
         }
         
-    axios.post('http://localhost:4000/users/upload', data, {
+    api.post('/users/upload', data, {
       headers: { 
         "Content-Type": "multipart/form-data",
         "Authorization": header,

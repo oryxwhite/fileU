@@ -4,6 +4,7 @@ import Upload  from './upload'
 import {IUserStore, IFile} from '../../types/interface'
 import axios from 'axios'
 import { useAuth, useAuthDispatch } from '../../hooks/context/context'
+import { api } from '../../services/api'
 
 const Dash: React.FC = (): JSX.Element => {
     const [message, setMessage] = useState<string>('')
@@ -14,7 +15,7 @@ const Dash: React.FC = (): JSX.Element => {
 
 
     useEffect(() => {
-        axios.get('http://localhost:4000/users/protected', { headers: { Authorization: state.userDetails?.token}})
+        api.get('/users/protected', { headers: { Authorization: state.userDetails?.token}})
             .then((res) => {
                 console.log(res.data)
                 setMessage(res.data?.msg)  

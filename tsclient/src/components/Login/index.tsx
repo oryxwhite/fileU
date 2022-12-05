@@ -1,10 +1,8 @@
-import { FormEvent, useContext, useState } from 'react'
 import { useForm, SubmitHandler  } from 'react-hook-form';
 import { IFormInput } from '../../types/interface';
-import {Axios, AxiosError, isAxiosError} from 'axios'
+import {isAxiosError} from 'axios'
 import { api } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
-import  authHeader from '../../services/auth'
 import { AuthContext, useAuthDispatch, useAuth} from '../../hooks/context/context';
 
 
@@ -17,19 +15,14 @@ const Login = (): JSX.Element => {
     const navigate = useNavigate()
 
     const formSubmitHandler: SubmitHandler<IFormInput> = async (data: IFormInput) => {
-        try {
-            const res = await api.post('http://localhost:4000/users/login', data , {
+        try{
+            const res = await api.post('/users/login', data , {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
-            // console.log(res.data)
-            // localStorage.setItem('user', JSON.stringify(res.data))
-            dispatch({type: "setUserData", userData: res.data.user})
-            console.log(state)
-            // localStorage.setItem("token", res.data?.token)
-            // console.log(localStorage.getItem('user'))
-            // if (authHeader().loggedIn) navigate('/dash') 
-            navigate('/dash')
 
+            dispatch({type: "setUserData", userData: res.data.user})
+
+            navigate('/dash')
 
         } catch(err) {
             if (isAxiosError(err)) {
