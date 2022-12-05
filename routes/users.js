@@ -21,7 +21,7 @@ router.post('/upload', upload.single('file'), passport.authenticate('jwt', {sess
     const file = fs.readFileSync(req.file.path)
     try {
         const locationdata = await s3.upload({
-            Bucket: process.env.S3_BUCKET,
+            Bucket: "cyclic-wild-bedclothes-wasp-ap-northeast-1",
             Key: req.file.filename,
             Body: file,
         }).promise()
