@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 
-.env
+
 vite-env.d.ts
 
 # Editor directories and files
