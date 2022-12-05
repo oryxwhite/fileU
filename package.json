@@ -4,8 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cd tsclient && npm run build"
+    "build": "cd tsclient && npm run build",
+    "install": "npm i && node generateKeyPair.js && cd tsclient && npm i",
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
