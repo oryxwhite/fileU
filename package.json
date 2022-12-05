@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build": "node generateKeyPair.js && cd tsclient && npm run build",
+    "build": "node generateKeyPair.js && cd tsclient && npm i && npm run build",
     "start": "node app.js"
   },
   "keywords": [],
