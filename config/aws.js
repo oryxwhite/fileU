@@ -3,11 +3,11 @@ require('dotenv').config()
 const path = require('path')
 
 const s3 = new AWS.S3(
-//     {
-//     accessKeyId: process.env.AWS_ACCESS_KEY,
-//     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-//     region: process.env.AWS_REGION
-// }
+    {
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_ORYX,
+    // region: process.env.AWS_REGION
+}
 )
 
 // const AWSupload = async (filename, file) => {
