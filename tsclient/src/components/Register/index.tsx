@@ -1,4 +1,5 @@
 import { useForm, SubmitHandler  } from 'react-hook-form';
+import { useState } from 'react'
 import { IFormInput } from '../../types/interface';
 import {Axios, AxiosError, isAxiosError} from 'axios'
 import { api } from '../../services/api';
@@ -7,19 +8,24 @@ import { useAuth, useAuthDispatch } from '../../hooks/context/context';
 const Register = (): JSX.Element => {
     const authState = useAuth()
     const authDispatch = useAuthDispatch()
+    const [message, setMessage] = useState<string>('Sign Up')
+
     const {register, handleSubmit, formState: { errors }} = useForm<IFormInput>()
     const navigate = useNavigate()
 
     const formSubmitHandler: SubmitHandler<IFormInput> = async (data: IFormInput) => {
         try {
+            setMessage('Loading')
             const res = await api.post('/users/register', data , {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
+            setMessage('Success!')
             authDispatch({type: "setUserData", userData: res.data.user})
            
             navigate('/dash') 
 
         } catch(err) {
+            setMessage('Error')
             if (isAxiosError(err)) {
                 if (err.response?.status === 400) {
                     console.log(err)
@@ -85,7 +91,7 @@ const Register = (): JSX.Element => {
                     {errors.confirmPassword && <div className='mb-4 text-error'>This field is required</div>}
             </label>
             <div>
-                <button className='btn text-white' type="submit">Sign Up</button>
+                <button className='btn text-white' type="submit">{message}</button>
             </div>
         </form>
       </div>

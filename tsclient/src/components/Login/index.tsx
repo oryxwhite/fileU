@@ -18,7 +18,7 @@ const Login = (): JSX.Element => {
     const navigate = useNavigate()
     const formSubmitHandler: SubmitHandler<IFormInput> = async (data: IFormInput) => {
         try{
-            setMessage('Loading')
+            setMessage('Logging In')
             const res = await api.post('/users/login', data , {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 onUploadProgress: (ProgressEvent) => {console.log(ProgressEvent)}

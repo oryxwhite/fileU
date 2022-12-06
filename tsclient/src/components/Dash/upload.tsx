@@ -11,7 +11,7 @@ type Props = {
 
 const Upload: React.FC<Props> =  ({setFiles, files}: Props) => {
   const [file, setFile] = useState<null | Blob>(null)
-  const [status, setStatus] = useState<null | string>(null)
+  const [status, setStatus] = useState<string>('Upload')
   const [header, setHeader] = useState<string>('')
   const dispatch = useAuthDispatch()
   const token = useAuth().userDetails?.token
@@ -24,7 +24,7 @@ const Upload: React.FC<Props> =  ({setFiles, files}: Props) => {
   }, [])
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setStatus(null)
+    setStatus('Upload')
     if (e.target.files) {
         console.log(e.target.files)
         setFile(e.target.files[0])}
@@ -32,6 +32,7 @@ const Upload: React.FC<Props> =  ({setFiles, files}: Props) => {
   }
 
   const handleUpload = () => {
+    setStatus('Uploading...')
     if (file != null){ 
         let data = new FormData()
         data.append('file', file)
@@ -61,7 +62,10 @@ const Upload: React.FC<Props> =  ({setFiles, files}: Props) => {
         // setFiles(res.data.files)
         // console.log(files)
       }
-    }).catch(err => console.log(err))
+    }).catch((err) => {
+      console.log(err)
+      setStatus('Error')
+    })
   }
   console.log(status)
     }
@@ -69,7 +73,7 @@ const Upload: React.FC<Props> =  ({setFiles, files}: Props) => {
     <div className='flex flex-col items-center'>
       {/* <h1>File Upload</h1> */}
       <input type='file' name='file' onChange={inputHandler} className='file-input file-input-bordered file-input-secondary w-full max-w-xs mb-4' />
-      <button  className={`btn mb-20 text-white`} onClick={handleUpload}>{(status != null) ? "Upload Success!" : 'Upload'}</button>
+      <button  className={`btn mb-20 text-white`} onClick={handleUpload}>{status}</button>
       {/* <h2 className='text-white font-bold text-xl mb-8'>{status}</h2> */}
     </div>
   )
