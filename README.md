@@ -10,6 +10,10 @@
      - Passport.js JWT (middleware for authentication)
  - MongoDB
  - AWS S3 Object Storage
+ 
+
+![](https://raw.githubusercontent.com/oryxwhite/fileU/main/Screenshot_20221215_023826.png)
+
 
 ## Install and configure
 - run npm i in root dir and tsclient
