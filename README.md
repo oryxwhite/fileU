@@ -1,6 +1,15 @@
 # FileU
 ## [Live Demo](https://wild-bedclothes-wasp.cyclic.app/)
-### A template for MERN projects that require user Authentication and file uploads. This app uses:
+Test account username: clycictest1, password: pass1234
+
+
+### A template for MERN projects that require user Authentication and file uploads. 
+
+![](https://raw.githubusercontent.com/oryxwhite/fileU/main/Screenshot_20221215_023826.png)
+
+
+
+This app uses:
 
  - React / Typescript
  - TailwindCSS
@@ -13,7 +22,6 @@
  - AWS S3 Object Storage
  
 
-![](https://raw.githubusercontent.com/oryxwhite/fileU/main/Screenshot_20221215_023826.png)
 
 
 ## Install and configure
